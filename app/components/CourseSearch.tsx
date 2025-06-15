@@ -87,7 +87,7 @@ export default function CourseSearch({ onSearchResults, onClearSearch }: CourseS
   const getSearchMethodColor = (method: string) => {
     switch (method) {
       case 'vector':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-purple-100 text-purple-800';
       case 'simple':
         return 'bg-green-100 text-green-800';
       default:
@@ -96,7 +96,7 @@ export default function CourseSearch({ onSearchResults, onClearSearch }: CourseS
   };
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 md:mb-8">
       <form onSubmit={handleSearch} className="flex gap-2">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -105,7 +105,7 @@ export default function CourseSearch({ onSearchResults, onClearSearch }: CourseS
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search your courses by topic, content, or concepts..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 md:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           />
           {query && (
             <button
@@ -121,31 +121,29 @@ export default function CourseSearch({ onSearchResults, onClearSearch }: CourseS
         <button
           type="submit"
           disabled={isSearching || !query.trim()}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 md:px-6 md:py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base"
         >
           {isSearching ? 'Searching...' : 'Search'}
         </button>
       </form>
       
-      {hasSearched && (
+      {query && (
         <div className="mt-2 text-sm text-gray-600">
-          {query && (
-            <div className="flex items-center gap-2">
-              <p>
-                Search results for: <span className="font-medium">"{query}"</span>
-              </p>
-              {lastSearchMethod && (
-                <span className={`text-xs px-2 py-1 rounded ${getSearchMethodColor(lastSearchMethod)}`}>
-                  {getSearchMethodLabel(lastSearchMethod)}
-                </span>
-              )}
-              {lastSearchMethod === 'simple' && (
-                <span className="text-xs text-orange-600">
-                  (AI search unavailable - using keyword search)
-                </span>
-              )}
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <p>
+              Search results for: <span className="font-medium">"{query}"</span>
+            </p>
+            {lastSearchMethod && (
+              <span className={`text-xs px-2 py-1 rounded ${getSearchMethodColor(lastSearchMethod)}`}>
+                {getSearchMethodLabel(lastSearchMethod)}
+              </span>
+            )}
+            {lastSearchMethod === 'simple' && (
+              <span className="text-xs text-orange-600">
+                (AI search unavailable - using keyword search)
+              </span>
+            )}
+          </div>
         </div>
       )}
     </div>

@@ -57,8 +57,8 @@ export default function CourseGenerationForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6">Generate New Course</h2>
+    <div className="max-w-md mx-auto p-6 md:p-8 bg-white rounded-lg shadow-sm">
+      <h2 className="text-xl md:text-2xl font-semibold mb-6">Generate New Course</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="topic" className="block text-sm font-medium text-gray-700 mb-1">
@@ -71,7 +71,7 @@ export default function CourseGenerationForm() {
             value={formData.topic}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 md:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             placeholder="e.g., Machine Learning, Web Development"
           />
         </div>
@@ -85,7 +85,7 @@ export default function CourseGenerationForm() {
             name="difficulty"
             value={formData.difficulty}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 md:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           >
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
@@ -103,7 +103,7 @@ export default function CourseGenerationForm() {
             value={formData.additionalInfo}
             onChange={handleChange}
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 md:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             placeholder="Any specific aspects you want the course to cover?"
           ></textarea>
         </div>
@@ -111,7 +111,7 @@ export default function CourseGenerationForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 transition-colors"
+          className="w-full bg-purple-600 text-white py-2 md:py-3 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 transition-colors text-sm md:text-base"
         >
           {isLoading ? 'Generating...' : 'Generate Course'}
         </button>

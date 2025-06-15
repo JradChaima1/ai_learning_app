@@ -56,63 +56,81 @@ export default function CoursesPage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto py-8 px-4">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4">Loading your courses...</p>
+      <div className="min-h-screen bg-gray-50 p-4 md:p-6 lg:p-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading your courses...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">My Courses</h1>
-        <Link
-          href="/courses/create"
-          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-        >
-          Create New Course
-        </Link>
-      </div>
-
-      <CourseSearch 
-        onSearchResults={handleSearchResults}
-        onClearSearch={handleClearSearch}
-      />
-
-      {displayCourses.length === 0 ? (
-        <div className="text-center py-12">
-          {isSearchMode ? (
-            <div>
-              <p className="text-gray-500 mb-4">No courses found matching your search.</p>
-              <button
-                onClick={handleClearSearch}
-                className="text-blue-600 hover:underline"
-              >
-                View all your courses
-              </button>
-            </div>
-          ) : (
-            <div>
-              <p className="text-gray-500 mb-4">You haven't created any courses yet.</p>
-              <Link
-                href="/courses/create"
-                className="text-blue-600 hover:underline"
-              >
-                Create your first course
-              </Link>
-            </div>
-          )}
+    <div className="min-h-screen bg-gray-50 p-4 md:p-6 lg:p-8">
+      {/* Header */}
+      <header className="flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12">
+        <div className="flex items-center gap-2 mb-4 md:mb-0">
+          <h1 className="text-xl font-semibold text-purple-600">AILearning</h1>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayCourses.map((course) => (
-            <div key={course.id} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-6">
+        <nav className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+          <Link href="/dashboard" className="px-3 py-1 md:px-4 md:py-2 bg-purple-100 text-purple-600 rounded-md text-sm md:text-base">Dashboard</Link>
+          <Link href="/courses" className="text-gray-600 text-sm md:text-base">Courses</Link>
+          <Link href="/logout" className="flex items-center gap-2 text-gray-600 text-sm md:text-base">
+            Logout
+          </Link>
+        </nav>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">My Courses</h2>
+            <p className="text-gray-600">Ready to learn with AI-powered courses?</p>
+          </div>
+          <Link
+            href="/courses/create"
+            className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-md hover:bg-purple-700 transition-colors text-sm md:text-base"
+          >
+            Create New Course
+          </Link>
+        </div>
+
+        <CourseSearch 
+          onSearchResults={handleSearchResults}
+          onClearSearch={handleClearSearch}
+        />
+
+        {displayCourses.length === 0 ? (
+          <div className="text-center py-12">
+            {isSearchMode ? (
+              <div>
+                <p className="text-gray-500 mb-4">No courses found matching your search.</p>
+                <button
+                  onClick={handleClearSearch}
+                  className="text-purple-600 hover:underline"
+                >
+                  View all your courses
+                </button>
+              </div>
+            ) : (
+              <div>
+                <p className="text-gray-500 mb-4">You haven't created any courses yet.</p>
+                <Link
+                  href="/courses/create"
+                  className="text-purple-600 hover:underline"
+                >
+                  Create your first course
+                </Link>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {displayCourses.map((course) => (
+              <div key={course.id} className="bg-white rounded-lg shadow-sm p-4 md:p-6 hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start mb-2">
-                  <h2 className="text-xl font-bold truncate flex-1">{course.title}</h2>
+                  <h3 className="text-lg md:text-xl font-semibold truncate flex-1">{course.title}</h3>
                   {isSearchMode && course.relevanceScore !== undefined && (
                     <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full ml-2">
                       {Math.round((1 - course.relevanceScore) * 100)}% match
@@ -123,10 +141,10 @@ export default function CoursesPage() {
                 <p className="text-gray-700 mb-4 line-clamp-3">{course.description}</p>
                 
                 {isSearchMode && course.matchingContent && course.matchingContent.length > 0 && (
-                  <div className="mb-4 p-3 bg-blue-50 rounded-md">
-                    <p className="text-xs font-medium text-blue-800 mb-1">Matching content:</p>
+                  <div className="mb-4 p-3 bg-purple-50 rounded-md">
+                    <p className="text-xs font-medium text-purple-800 mb-1">Matching content:</p>
                     {course.matchingContent.map((content, index) => (
-                      <p key={index} className="text-xs text-blue-700 line-clamp-2 mb-1">
+                      <p key={index} className="text-xs text-purple-700 line-clamp-2 mb-1">
                         "{content.substring(0, 100)}..."
                       </p>
                     ))}
@@ -137,16 +155,16 @@ export default function CoursesPage() {
                   <span className="text-sm text-gray-500">Created by you</span>
                   <Link
                     href={`/courses/${course.id}`}
-                    className="text-blue-600 hover:underline"
+                    className="text-purple-600 hover:underline"
                   >
                     View Course
                   </Link>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 }

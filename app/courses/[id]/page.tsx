@@ -17,7 +17,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
     // Check if it's a database connection error
     if (isDatabaseConnectionError(error)) {
       return (
-        <div className="container mx-auto py-8 px-4">
+        <div className="min-h-screen bg-gray-50 p-4 md:p-6 lg:p-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl font-bold mb-4 text-red-600">Database Connection Error</h1>
             <p className="text-gray-600 mb-6">
@@ -26,7 +26,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
             <div className="space-y-4">
               <Link
                 href="/courses"
-                className="inline-block bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+                className="inline-block bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors"
               >
                 Back to Courses
               </Link>
@@ -51,9 +51,20 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">{course.title}</h1>
+    <div className="min-h-screen bg-gray-50 p-4 md:p-6 lg:p-8">
+      {/* Header */}
+      <header className="flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12">
+        <div className="flex items-center gap-2 mb-4 md:mb-0">
+          <h1 className="text-xl font-semibold text-purple-600">AILearning</h1>
+        </div>
+        <nav className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+          <Link href="/courses" className="px-3 py-1 md:px-4 md:py-2 bg-purple-100 text-purple-600 rounded-md text-sm md:text-base">Back to Courses</Link>
+        </nav>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2">{course.title}</h1>
         <div className="flex items-center text-gray-500 mb-6">
           <span>By {course.user.name || 'Anonymous'}</span>
           <span className="mx-2">•</span>
@@ -67,18 +78,18 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
         </div>
 
         {course.description && (
-          <div className="bg-gray-50 p-4 rounded-lg mb-6">
+          <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm mb-6">
             <h2 className="text-xl font-semibold mb-2">Description</h2>
             <p className="text-gray-700">{course.description}</p>
           </div>
         )}
 
-        <div className="prose max-w-none mb-8">
+        <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm mb-8">
           <h2 className="text-2xl font-bold mb-4">Course Content</h2>
-          <div className="whitespace-pre-wrap">{course.content}</div>
+          <div className="whitespace-pre-wrap text-gray-700">{course.content}</div>
         </div>
 
-        <div className="mb-8">
+        <div className="bg-white p-4 md:p-6 rounded-lg shadow-sm mb-8">
           <h2 className="text-2xl font-bold mb-4">Quizzes</h2>
           {course.quizzes.length > 0 ? (
             <div className="space-y-4">
@@ -89,7 +100,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
                     <div className="space-x-2">
                       <Link
                         href={`/quizzes/${quiz.id}`}
-                        className="bg-blue-600 text-white py-1 px-3 rounded-md text-sm hover:bg-blue-700 transition-colors"
+                        className="bg-purple-600 text-white py-1 px-3 rounded-md text-sm hover:bg-purple-700 transition-colors"
                       >
                         Take Quiz
                       </Link>
@@ -104,7 +115,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
               {session?.user && session.user.id === course.userId && (
                 <Link
                   href={`/quizzes/create?courseId=${course.id}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-purple-600 hover:underline"
                 >
                   Create a quiz for this course
                 </Link>
@@ -116,14 +127,14 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
             <div className="mt-4">
               <Link
                 href={`/quizzes/create?courseId=${course.id}`}
-                className="text-blue-600 hover:underline"
+                className="text-purple-600 hover:underline"
               >
                 Create another quiz
               </Link>
             </div>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
